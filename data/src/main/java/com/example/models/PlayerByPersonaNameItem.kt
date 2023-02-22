@@ -3,6 +3,7 @@ package com.example.models
 import com.google.gson.annotations.SerializedName
 
 data class PlayerByPersonaNameItem(
+    @SerializedName("account_id")
     val accountId: Int,
     @SerializedName("avatar")
     val avatar: String,

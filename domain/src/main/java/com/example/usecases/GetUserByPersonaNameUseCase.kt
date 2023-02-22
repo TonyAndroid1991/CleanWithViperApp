@@ -12,4 +12,8 @@ class GetUserByPersonaNameUseCase @Inject constructor (private val repository: R
     override fun prepareFlow(input: String): Flow<List<PlayerByPersonaName>> = flow {
         emit(repository.fetchUserByPersonaName(input))
     }
+
+    suspend fun getUserByPersonaName(name: String): List<PlayerByPersonaName> {
+        return repository.fetchUserByPersonaName(name)
+    }
 }
