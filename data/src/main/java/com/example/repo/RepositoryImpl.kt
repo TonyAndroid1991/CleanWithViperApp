@@ -3,8 +3,9 @@ package com.example.repo
 import com.example.mappers.PlayerByPersonaNameMapper
 import com.example.models.PlayerByPersonaName
 import com.example.repositories.Repository
+import javax.inject.Inject
 
-class RepositoryImpl(
+class RepositoryImpl @Inject constructor (
     private val remoteDataSource: RemoteDataSource,
     private val playerByPersonaNameMapper: PlayerByPersonaNameMapper
 ) : Repository {

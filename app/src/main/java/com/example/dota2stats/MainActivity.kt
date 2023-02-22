@@ -2,7 +2,6 @@ package com.example.dota2stats
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.example.dota2stats.viewmodel.HomeViewModel
 import com.example.dota2stats.viewmodel.HomeViewModelFactory
@@ -25,9 +24,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         homeViewModel = ViewModelProvider(this, homeViewModelFactory)[HomeViewModel::class.java]
-        homeViewModel.getUserByPersonaName("Atila")
-        val list = homeViewModel.listOfPlayers
-        Log.i(TAG, "onCreate: ${list[0].userName}")
 
     }
 }

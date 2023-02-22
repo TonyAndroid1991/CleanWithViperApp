@@ -11,11 +11,10 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val getUserByPersonaNameUseCase: GetUserByPersonaNameUseCase): ViewModel () {
 
-    lateinit var listOfPlayers: List<PlayerByPersonaName>
 
     fun getUserByPersonaName(name: String) = viewModelScope.launch {
         getUserByPersonaNameUseCase.prepareFlow(name).collect {
-            listOfPlayers = it
+
         }
     }
 }
