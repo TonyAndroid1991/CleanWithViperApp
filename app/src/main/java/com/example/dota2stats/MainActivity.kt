@@ -7,6 +7,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.dota2stats.viewmodel.HomeViewModel
 import com.example.dota2stats.viewmodel.HomeViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -27,15 +32,19 @@ class MainActivity : AppCompatActivity() {
         homeViewModel = ViewModelProvider(this, homeViewModelFactory)[HomeViewModel::class.java]
         homeViewModel.getUserByPersonaName("TTV/Atila_TV")
 
-        homeViewModel.listOfPlayersLiveData.observe(this) {
-            Log.d(TAG, "onCreate: ${it[0].userName} =========================")
-            Log.d(TAG, "onCreate: ${it[0].userId} =========================")
-
-            Log.d(TAG, "onCreate: ${it[1].userName} =========================")
-            Log.d(TAG, "onCreate: ${it[1].userId} =========================")
-
-            Log.d(TAG, "onCreate: ${it[49].userName} =========================")
-            Log.d(TAG, "onCreate: ${it[49].userId} =========================")
+        /**Con Flow pero sin el PrepareFlow*/
+        CoroutineScope(Dispatchers.IO).launch {
+            homeViewModel.event.collect {
+                Log.d(TAG, "onCreate: ${it[0].userName} =========================")
+                Log.d(TAG, "onCreate: ${it[0].userId} =========================")
+            }
         }
+
+
+        /**Con LiveData*/
+//        homeViewModel.listOfPlayersLiveData.observe(this) {
+//            Log.d(TAG, "onCreate: ${it[0].userName} =========================")
+//            Log.d(TAG, "onCreate: ${it[0].userId} =========================")
+//        }
     }
 }
