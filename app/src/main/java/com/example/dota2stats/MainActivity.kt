@@ -4,13 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.example.dota2stats.viewmodel.Event
 import com.example.dota2stats.viewmodel.HomeViewModel
 import com.example.dota2stats.viewmodel.HomeViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,9 +33,16 @@ class MainActivity : AppCompatActivity() {
 
         /**Con Flow pero sin el PrepareFlow*/
         CoroutineScope(Dispatchers.IO).launch {
-            homeViewModel.event.collect {
-                Log.d(TAG, "onCreate: ${it[0].userName} =========================")
-                Log.d(TAG, "onCreate: ${it[0].userId} =========================")
+            homeViewModel.event.collect { event ->
+                when (event) {
+                    is Event.Loading -> {
+                        Log.i(TAG, "onCreate: Loading.............. ====")
+                    }
+                    is Event.Success -> {
+                        Log.i(TAG, "onCreate: ${event.data?.get(0)?.userName}")
+                        Log.i(TAG, "onCreate: ${event.data?.get(0)?.userId}")
+                    }
+                }
             }
         }
 

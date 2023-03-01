@@ -15,3 +15,5 @@ l
 app/build.gradle,f\4\f4a01d6a4fcb971362ec00a83903fd3902f52164
 C
 domain/build.gradle,a\3\a3021bb5ba623a461b5fdb89ae51923a4945c354
+s
+Capp/src/main/java/com/example/dota2stats/viewmodel/BaseViewModel.kt,5\c\5c4dd640afb89f321ad03d52ebd45e4cd386c0e9
