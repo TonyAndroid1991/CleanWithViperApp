@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         /**Con Flow pero sin el PrepareFlow*/
         CoroutineScope(Dispatchers.IO).launch {
-            homeViewModel.event.collect { event ->
+            homeViewModel.state.collect { event ->
                 when (event) {
                     is Event.Loading -> {
                         Log.i(TAG, "onCreate: Loading.............. ====")
