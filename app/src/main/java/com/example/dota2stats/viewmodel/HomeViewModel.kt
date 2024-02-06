@@ -30,10 +30,20 @@ class HomeViewModel @Inject constructor(private val getUserByPersonaNameUseCase:
 
         when (event) {
             is SearchPlayerByName -> {
+                val result = getUserByPersonaNameUseCase.getUserByPersonaName(name)
 
+                if (result.isNotEmpty()) {
+                    _event.send(Success(result))
+                } else {
+                    _event.send(Error("oops something went wrong"))
+                }
             }
 
             is SearchPlayerByID -> {
+
+            }
+
+            else -> {
 
             }
         }

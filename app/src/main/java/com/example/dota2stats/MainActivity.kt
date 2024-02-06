@@ -29,19 +29,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         homeViewModel = ViewModelProvider(this, homeViewModelFactory)[HomeViewModel::class.java]
-        homeViewModel.getUserByPersonaName("TTV/Atila_TV")
+        homeViewModel.getUserByPersonaName("TTV/Atila_TV", Event.SearchPlayerByName)
 
         /**Con Flow pero sin el PrepareFlow*/
         CoroutineScope(Dispatchers.IO).launch {
-            homeViewModel.state.collect { event ->
+            homeViewModel.event.collect { event ->
                 when (event) {
                     is Event.Loading -> {
                         Log.i(TAG, "onCreate: Loading.............. ====")
                     }
                     is Event.Success -> {
-                        Log.i(TAG, "onCreate: ${event.data?.get(0)?.userName}")
-                        Log.i(TAG, "onCreate: ${event.data?.get(0)?.userId}")
+                        //Log.i(TAG, "onCreate: ${event.data?.get(0)?.userName}")
+                        Log.i(TAG, "onCreate: ${event.result[0].userName }")
+                       // Log.i(TAG, "onCreate: ${event.data?.get(0)?.userId}")
+                        Log.i(TAG, "onCreate: ${event.result[0].userId}")
                     }
+
+                    else -> {}
                 }
             }
         }
